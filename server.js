@@ -5,6 +5,7 @@ const serverError = require('./middlewares/serverError')
 const notFound = require('./middlewares/notFound')
 const port = process.env.PORT || 3000
 
+// static
 app.use(express.static('public'))
 
 app.listen(port, () => {
