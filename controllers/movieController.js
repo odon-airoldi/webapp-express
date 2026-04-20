@@ -2,12 +2,37 @@ const connection = require('../database/connection')
 
 // index
 const index = (req, res) => {
-    res.send('movies')
+    // res.send('movies')
+    const query_sql = 'SELECT * FROM movies'
+
+    connection.query(query_sql, (err, results) => {
+        if (err) {
+            console.error(err)
+            return res.status(500).json({ error: 'query error' })
+        }
+        res.json(results)
+    });
+
 }
+
 
 // show
 const show = (req, res) => {
-    res.send('show movie')
+    const query_sql = 'SELECT * FROM movies WHERE id = ?'
+    const id = Number(req.params.id)
+
+    connection.query(query_sql, [id], (err, results) => {
+        if (err) {
+            console.error(err)
+            return res.status(500).json({ error: 'query error' })
+        }
+        if (results.length === 0) {
+            console.error(err)
+            return res.status(404).json({ error: 'movie not found' })
+        }
+        res.json(results[0])
+    });
+
 }
 
 module.exports = {
