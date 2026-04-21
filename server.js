@@ -1,9 +1,14 @@
 const express = require('express')
+const cors = require('cors')
 const app = express()
 const movieRouter = require('./routes/movies')
 const serverError = require('./middlewares/serverError')
 const notFound = require('./middlewares/notFound')
 const port = process.env.PORT || 3000
+
+app.use(cors({
+    origin: "http://localhost:5173"
+}));
 
 // static
 app.use(express.static('public'))
