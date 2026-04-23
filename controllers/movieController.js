@@ -1,5 +1,6 @@
 const connection = require('../database/connection')
 
+
 // index
 const index = (req, res) => {
 
@@ -53,7 +54,26 @@ const show = (req, res) => {
 
 }
 
+// post
+const store = (req, res) => {
+
+    const movieid = Number(req.params.id)
+    const { name, vote, text } = req.body
+
+    const query_sql = `
+        INSERT INTO movies_db.reviews (movie_id, name, vote, text)
+        VALUES (?, ?, ?, ?)
+    `
+
+    connection.query(query_sql, [movieid, name, vote, text], (err, results) => {
+
+        res.status(201).json({ message: 'Recensione aggiunta' })
+    })
+
+}
+
 module.exports = {
     index,
-    show
+    show,
+    store
 }

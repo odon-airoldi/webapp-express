@@ -6,9 +6,13 @@ const serverError = require('./middlewares/serverError')
 const notFound = require('./middlewares/notFound')
 const port = process.env.PORT || 3000
 
-app.use(cors({
-    origin: "http://localhost:5173"
-}));
+app.use(express.json()) // per JSON
+
+app.use(cors(
+    // {
+    //     origin: "http://localhost:5173"
+    // }
+));
 
 // static
 app.use(express.static('public'))
