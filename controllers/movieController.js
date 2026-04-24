@@ -66,8 +66,25 @@ const store = (req, res) => {
     `
 
     connection.query(query_sql, [movieid, name, vote, text], (err, results) => {
+        if (err) {
+            console.error(err)
+            return res.status(500).json({ error: 'query error' })
+        }
 
-        res.status(201).json({ message: 'Recensione aggiunta' })
+        // 
+        const newRev = {
+            id: results.insertId,
+            movie_id: movieid,
+            name,
+            vote,
+            text
+        }
+
+        res.status(201).json({
+            review: newRev
+        })
+
+
     })
 
 }
